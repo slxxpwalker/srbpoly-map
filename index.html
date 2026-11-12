@@ -182,15 +182,25 @@ const GEO={lat0:14.5032062,lng0:100.9099452,cx:800.5,cy:480.5,mpp:0.2044,mLat:11
    sty   = look: red | blue | new | pink | hall | brick | shed        nF = number of floors      h = height override (m)
    units = departments / offices inside (searchable)
    rs    = rooms: {cols,rows,floors:[ [ [code,name,type,capacity,span,{c,r,real}] ... ] per floor ]}                      */
-const S7=[
- [['2-101','ห้องเรียน 2-101','classroom',40],['2-102','ห้องเรียน 2-102','classroom',40],['2-103','ห้องเรียน 2-103','classroom',40],['2-104','ห้องพักครู','office',8],['2-105','โรงฝึกงาน','workshop',30,2],['2-107','ห้องเก็บเครื่องมือ','tools',3],['2-108','งานทะเบียน','office',6]],
- [['2-201','ห้องเรียน 2-201','classroom',40],['2-202','ห้องเรียน 2-202','classroom',40],['2-203','ห้องเรียน 2-203','classroom',40],['2-204','ห้องเรียน 2-204','classroom',40],['2-205','Lab คอม 2-205','lab',30],['2-206','Lab คอม 2-206','lab',30],['2-207','ห้องพักครู','office',8],['2-208','ห้องประชุมเล็ก','meeting',12]],
- [['2-301','ห้องสมุด','library',80,2],['2-303','ห้องเรียน 2-303','classroom',40],['2-304','ห้องเรียน 2-304','classroom',40],['2-305','ห้องประชุมใหญ่','meeting',40,2],['2-307','ห้องพักครู','office',8],['2-308','ห้องเซิร์ฟเวอร์','server',2]],
- [['2-401','ห้องเรียน 2-401','classroom',40],['2-402','ห้องเรียน 2-402','classroom',40],['2-403','ห้องเรียน 2-403','classroom',40],['2-404','ห้องเรียน 2-404','classroom',40],['2-405','ห้องเรียน 2-405','classroom',40],['2-406','ห้องเรียน 2-406','classroom',40],['2-407','ห้องพักครู','office',8],['2-408','ห้องประชุม','meeting',16]]];
-const S11=[
- [['B-101','ห้องเรียน 101','classroom',40],['B-102','ห้องเรียน 102','classroom',40],['B-103','Lab คอม 1','lab',30],['B-104','Lab คอม 2','lab',30],['B-105','ห้องเซิร์ฟเวอร์','server',2],['B-106','ห้องสมุด','library',80,2],['B-108','ห้องประชุม','meeting',16],['B-109','ห้องพักครู','office',8],['B-110','ห้องเรียน 110','classroom',40]],
- [['B-201','ห้องเรียน 201','classroom',40],['B-202','ห้องเรียน 202','classroom',40],['B-203','ห้องเรียน 203','classroom',40],['B-204','ห้องเรียน 204','classroom',40],['B-205','ห้องเรียน 205','classroom',40],['B-206','Lab คอม 3','lab',30],['B-207','Lab คอม 4','lab',30],['B-208','ห้องเรียน 208','classroom',40],['B-209','ห้องพักครู','office',8],['B-210','ห้องประชุม','meeting',16]],
- [['B-301','ห้องสมุดดิจิทัล','library',60,2],['B-303','ห้องเรียน 303','classroom',40],['B-304','ห้องเรียน 304','classroom',40],['B-305','ห้องเรียน 305','classroom',40],['B-306','ห้องประชุมใหญ่','meeting',40,2],['B-308','ห้องพักครู','office',8],['B-309','ห้องเซิร์ฟเวอร์','server',2],['B-310','ห้องเรียน 310','classroom',40]]];
+/* อาคาร 1 (blue) and อาคาร 2 (red): from the hand-drawn sketches in photo/อาคาร 1 and photo/อาคาร 2.
+   box = [left, top, right, bottom] as a fraction of the building's main bar (left = west, top = north). */
+const U={n:'ห้อง (ยังไม่ระบุ)',svc:1};
+const A1=[
+ [{n:'ศูนย์การเรียนรู้คณิตศาสตร์',t:'classroom',cap:30,box:[0,0,.16,1]},{n:'ศูนย์ประสานงาน',t:'office',box:[.18,.34,.4,1]},{n:'ทางเข้าอาคาร 1',svc:1,box:[.42,.34,.56,1]},
+  {c:'114',n:'ห้อง 114',t:'classroom',cap:40,box:[.58,.34,.72,1]},{...U,box:[.74,.34,.88,1]},{n:'ห้องเปล่า',svc:1,box:[.9,.34,1,1]}],
+ [{n:'ห้องล้าง',svc:1,box:[0,.34,.13,1]},{n:'ห้องเรียนภาษาอังกฤษ',t:'classroom',cap:40,box:[.16,.34,.32,1]},{n:'ห้องเรียนภาษาอังกฤษ',t:'classroom',cap:40,box:[.34,.34,.5,1]},
+  {c:'124',n:'ห้อง 124',t:'classroom',cap:40,box:[.52,.34,.66,1]},{...U,box:[.68,.34,.82,1]},{n:'ห้องเรียนภาษาไทย',t:'classroom',cap:40,box:[.84,.34,1,1]}],
+ [{n:'COM 01',t:'lab',cap:30,box:[0,.34,.13,1]},{c:'132',n:'ห้อง 132',t:'classroom',cap:40,box:[.18,.34,.32,1]},{c:'133',n:'ห้อง 133',t:'classroom',cap:40,box:[.34,.34,.48,1]},
+  {c:'134',n:'ห้อง 134',t:'classroom',cap:40,box:[.5,.34,.62,1]},{c:'135',n:'COM 05',t:'lab',cap:30,box:[.64,.34,.8,1]},{n:'ชมรมวิชาชีพ',t:'meeting',cap:16,box:[.84,.34,1,1]}]];
+const A2=[
+ [{n:'ห้องปฏิบัติการ',t:'workshop',cap:30,box:[0,0,.2,1]},{n:'ห้องพักครู',t:'office',box:[.22,0,.36,.62]},{...U,box:[.38,0,.52,.62]},{...U,box:[.54,0,.68,.62]},
+  {n:'ห้องเรียนเขียนแบบ',t:'classroom',cap:40,box:[.7,0,.84,.62]},{n:'แผนกวิชาเทคนิคอุตสาหกรรม',t:'office',box:[.86,0,1,1]}],
+ [{n:'ห้องปฏิบัติการเครื่องยนต์แก๊สโซลีนหัวฉีด',t:'workshop',cap:30,box:[0,0,.17,.62]},{n:'ชมรมวิชาชีพ',t:'meeting',cap:16,box:[.18,0,.26,.62]},{n:'ห้องเรียนทฤษฎี',t:'classroom',cap:40,box:[.28,0,.42,.62]},
+  {n:'ห้องปฏิบัติการระบบปรับอากาศยานยนต์',t:'workshop',cap:30,box:[.44,0,.56,.62]},{n:'ห้องปฏิบัติการระบบส่งกำลังและเครื่องล่างรถยนต์',t:'workshop',cap:30,box:[.58,0,.7,.62]},
+  {n:'ห้องปฏิบัติการจักรยานยนต์',t:'workshop',cap:30,box:[.72,0,.82,.62]},{n:'ห้องจัดเก็บครุภัณฑ์',svc:1,box:[.84,0,1,.62]}],
+ [{n:'ห้องปฏิบัติการนิวเมติกส์และไฮดรอลิกส์',t:'classroom',cap:30,box:[0,0,.17,.5]},{n:'ห้องปฏิบัติการงานซ่อมเครื่องใช้ไฟฟ้า',t:'classroom',cap:30,box:[0,.5,.17,1]},{n:'ห้องเรียนคอม',t:'lab',cap:30,box:[.2,0,.33,.62]},
+  {...U,box:[.35,0,.48,.62]},{n:'ห้องเรียนปฏิบัติการเครื่องกลไฟฟ้า',t:'classroom',cap:30,box:[.5,0,.64,.62]},{n:'ห้องเรียนทฤษฎี',t:'classroom',cap:40,box:[.66,0,.8,.62]},
+  {n:'ห้องทดสอบมาตรฐานฝีมือแรงงาน สาขาช่างไฟ',t:'classroom',cap:30,box:[.83,0,1,.6]},{n:'ห้องพักครู',t:'office',box:[.83,.62,1,1]}]];
 /* อาคาร 3: from the hand-drawn floor sketches. box = [left, top, right, bottom] as a fraction of the building
    (left = west, top = north; stairs and lift on the east side).  t = interior scene type (omit for spaces with no interior view) */
 const A3=[
@@ -205,7 +215,7 @@ const A3=[
   {c:'333',n:'Digital Business Technology',t:'lab',cap:30,box:[0,.63,.19,.76]},{c:'332',n:'Digital Business Technology',t:'lab',cap:30,box:[0,.76,.19,.88]},
   {c:'331',n:'Digital Business Technology',t:'lab',cap:30,box:[0,.88,.19,1]},
   {n:'ห้องน้ำ',svc:1,box:[.64,0,1,.22]},{n:'บันได · ลิฟต์',svc:1,box:[.84,.39,1,.68]},{n:'ศูนย์ส่งเสริมทางวิชาการ',t:'office',box:[.84,.69,1,.88]}],
- [{n:'ห้องประชุมปาริชาติ',t:'meeting',cap:30,box:[.25,.07,.51,.43]},{n:'SRB Grand Hall',t:'hall',cap:150,box:[.25,.54,.51,1]},{n:'ห้องเก็บ',svc:1,box:[.21,0,.56,.06]},
+ [{n:'ห้องประชุมปาริชาติ',t:'conf',cap:30,box:[.25,.07,.51,.43]},{n:'SRB Grand Hall',t:'hall',cap:150,box:[.25,.54,.51,1]},{n:'ห้องเก็บ',svc:1,box:[.21,0,.56,.06]},
   {n:'ห้องน้ำ',svc:1,box:[.83,0,1,.14]},{n:'บันได · ลิฟต์',svc:1,box:[.88,.32,1,.62]},{n:'ห้องพระ',svc:1,box:[.8,.84,1,1]}],
  [{n:'ห้องปฏิบัติการสื่อสิ่งพิมพ์',t:'lab',cap:30,box:[0,0,.55,.14]},{n:'ห้องปฏิบัติการคอมพิวเตอร์กราฟิก',t:'lab',cap:30,box:[0,.14,.41,.56]},{n:'Grand Room ชั้น 2',svc:1,box:[0,.56,.42,1]},
   {n:'ห้องน้ำ',svc:1,box:[.87,0,1,.17]},{n:'บันได · ลิฟต์',svc:1,box:[.9,.35,1,.69]}],
@@ -217,20 +227,20 @@ const BUILDINGS=[
  {n:4,name:'',sty:'brick',nF:2,px:[[688,192],[731,199],[718,268],[679,262]]},
  {n:5,name:'',sty:'brick',nF:2,px:[[738,198],[769,205],[752,295],[720,290]]},
  {n:6,name:'',sty:'brick',nF:2,px:[[525,248],[715,287],[703,345],[515,304]]},
- {n:7,name:'อาคาร 2',sty:'red',nF:4,px:[[780,222],[1068,283],[1052,372],[995,360],[1000,335],[765,305]],rs:{cols:4,rows:2,floors:S7}},
+ {n:7,name:'อาคาร 2',sty:'red',nF:3,units:['แผนกวิชาเทคนิคอุตสาหกรรม','ชมรมวิชาชีพ'],px:[[780,222],[1068,283],[1052,372],[995,360],[1000,335],[765,305]],rs:{floors:A2}},
  {n:8,name:'',sty:'brick',nF:2,px:[[510,332],[698,371],[688,430],[498,393]]},
  {n:9,name:'',sty:'brick',nF:2,px:[[492,403],[682,441],[668,502],[482,464]]},
  {n:10,name:'',sty:'shed',nF:1,px:[[697,442],[720,446],[707,500],[685,496]]},
- {n:11,name:'',hint:'อาคารสีฟ้า',sty:'blue',nF:3,px:[[742,400],[805,413],[800,428],[963,456],[965,449],[1030,463],[1013,550],[803,525],[805,508],[717,490]],rs:{cols:5,rows:2,floors:S11}},
- {n:12,name:'อาคาร 3',sty:'new',nF:5,px:[[1078,300],[1228,327],[1190,512],[1040,485]],
+ {n:11,name:'อาคาร 1',sty:'blue',nF:3,units:['ศูนย์การเรียนรู้คณิตศาสตร์','ศูนย์ประสานงาน','ชมรมวิชาชีพ'],px:[[742,400],[805,413],[800,428],[963,456],[965,449],[1030,463],[1013,550],[803,525],[805,508],[717,490]],rs:{floors:A1}},
+ {n:12,name:'อาคาร 3 · อำนวยการ',sty:'new',nF:5,h:18,base:0.45,custom:true,px:[[1078,300],[1228,327],[1190,512],[1040,485]],
    units:['ห้องผู้อำนวยการ','งานทะเบียน','งานบัญชี · การเงิน','งานปกครอง','ศูนย์บ่มเพาะ','SRB Grand Hall','Digital Business Technology','Accounting Department','Business Management'],
    rs:{floors:A3}},
  {n:13,name:'',sty:'shed',nF:1,px:[[403,520],[478,533],[470,590],[395,575]]},
  {n:14,name:'',sty:'shed',nF:1,px:[[483,530],[530,538],[524,575],[477,567]]},
- {n:15,name:'',hint:'อาคารสีชมพู',sty:'pink',nF:4,units:['ครัวสารพัดช่างสระบุรี','Food Learning Center','ศูนย์การเรียนรู้ปฏิบัติการอาหารและโภชนาการ','ห้องอาหาร'],
+ {n:15,name:'อาคารวิทยบริการ',sty:'pink',nF:4,units:['ครัวสารพัดช่างสระบุรี','Food Learning Center','ศูนย์การเรียนรู้ปฏิบัติการอาหารและโภชนาการ','ห้องอาหาร'],
    px:[[735,612],[848,632],[852,590],[902,600],[892,740],[820,728],[820,713],[717,690]],
    rs:{cols:3,rows:2,floors:[[['','ครัวสารพัดช่างสระบุรี','canteen',40,1,{c:0,r:0,real:1}],['','ห้องอาหาร','canteen',80,2,{c:0,r:1,real:1}]],[],[],[]]}},
- {n:16,name:'',hint:'อาคารโรงฝึกงาน',sty:'hall',nF:1,h:9,units:['ศูนย์การเรียนรู้พระเครื่องไทย','โรงฝึกงาน'],
+ {n:16,name:'อาคารหอประชุม (หลังเก่า)',sty:'hall',nF:1,h:9,units:['ศูนย์การเรียนรู้พระเครื่องไทย','โรงฝึกงาน'],
    px:[[918,588],[1120,632],[1093,767],[1030,756],[1027,773],[906,752]],
    rs:{cols:3,rows:2,floors:[[['','ศูนย์การเรียนรู้พระเครื่องไทย','meeting',20,2,{c:0,r:0,real:1}],['','โรงฝึกงาน','workshop',30,3,{c:0,r:1,real:1}]]]}},
  {n:17,name:'โรงอาหาร',sty:'shed',nF:1,h:4.2,units:['ร้านค้าสวัสดิการ'],px:[[712,695],[822,717],[817,749],[706,727]]},
@@ -311,6 +321,7 @@ const B=BUILDINGS.map(b=>{
     pts,bb:bboxOf(pts),strips:st,core,cx:core.x+core.w/2,cy:core.y+core.h/2,area:pi.area,H,nFloors:b.nF,floor:1,rooms:[]});
 });
 const ROOMS=[],ROOMS_BY={};
+const floorY=(b,f)=>(f-1)*b.H/b.nF+(f===1?(b.base||0):0);
 const floorName=(b,f)=>f>b.nF?'ดาดฟ้า':'ชั้น '+f;
 B.forEach(b=>{
   if(!b.rs)return;const {cols=1,rows=1,floors}=b.rs,c0=b.core;b.nFloors=floors.length;
@@ -485,7 +496,7 @@ function buildRoom(rm){
   const [W,D,H]=DIM[rm.type];const g=new T.Group();sc.add(g);
   sc.add(new T.HemisphereLight(0xffffff,0x9a9384,0.85));const dl=new T.DirectionalLight(0xfff3e2,0.5);dl.position.set(W,H*2,1);sc.add(dl);sc.add(new T.AmbientLight(0xffffff,0.18));
   BUILD[rm.type](g,W,D,H,rm);
-  Room.scene=sc;Room.cam.position.set(rm.type==='office'||rm.type==='server'?-0.3:0.4,1.6,D/2-0.75);Room.rm=rm;
+  Room.scene=sc;Room.cam.position.set(rm.type==='office'||rm.type==='server'?-0.3:0.4,1.6+(g.userData.camLift||0),D/2-0.75);Room.rm=rm;
   $('#reye').textContent=`${rm.b.label} · ${floorName(rm.b,rm.floor)}`;
   $('#rname').textContent=`${rm.code} ${rm.name}`.trim();
   $('#rmeta').innerHTML=`<span>${TYPES[rm.type]}</span>${rm.cap?`<span>รองรับ ${rm.cap} คน</span>`:''}<span>${W}×${D} ม. · สูง ${H} ม.</span>`;
@@ -530,15 +541,31 @@ cv.addEventListener('wheel',e=>{e.preventDefault();Room.fovT=Math.max(35,Room.fo
 
 
 
-TYPES.hall='ห้องประชุมใหญ่';DIM.hall=[26,20,7];
-BUILD.hall=function(g,W,D,H,rm){
-  shell(g,W,D,H,{floor:'#8a5f45',line:'#7d553d',wall:0xece6da,tile:0.5});door(g,D,-W/2+1.5);
-  box(g,W-6,0.9,5,0x5a3b2a,0,0,-D/2+2.5);
-  panel(g,W-8,3.2,MB({map:textTex([{t:rm.name,s:130,c:'#f6e7b0'},{t:'วิทยาลัยสารพัดช่างสระบุรี',s:60,c:'#ffffff',wt:500}],{w:1536,h:480,bg:'#7a1f2b'})}),0,3.4,-D/2+0.06);
-  box(g,1.2,1.1,0.6,0x6b4a33,-W/4,0.9,-D/2+3.6);
-  for(let z=-D/2+7.5;z<D/2-1.5;z+=1.5)for(let x=-W/2+2.6;x<=W/2-2.6;x+=1.2){if(Math.abs(x)<0.8)continue;chair(g,x,z,0xa3262f);}
+TYPES.hall='ห้องประชุมใหญ่';DIM.hall=[22,20,7];TYPES.conf='ห้องประชุม';DIM.conf=[15,10,3.2];
+BUILD.hall=function(g,W,D,H,rm){   // theatre seating, as in the college's photos of SRB Grand Hall
+  shell(g,W,D,H,{floor:'#5b4636',line:'#52402f',wall:0x3b3e44,ceil:0x26282b,tile:0.5,skirt:0x222222});door(g,D,-W/2+1.5);
+  box(g,W-5,0.8,4.6,0x2a2522,0,0,-D/2+2.3);
+  const cur=canvasTex(256,64,(x,w,h)=>{for(let i=0;i<w;i+=8){x.fillStyle=i%16?'#e9eaec':'#cfd2d6';x.fillRect(i,0,8,h);}});cur.wrapS=T.RepeatWrapping;cur.repeat.set(4,1);
+  panel(g,W-7,H-1.6,MB({map:cur}),0,0.8+(H-1.6)/2,-D/2+0.07);
+  panel(g,9,1.6,new T.MeshBasicMaterial({map:textTex([{t:rm.name,s:120,c:'#b0304a'},{t:'วิทยาลัยสารพัดช่างสระบุรี',s:64,c:'#b0304a',wt:500}],{w:1536,h:300,bg:'#e9eaec'})}),0,4.6,-D/2+0.1);
+  box(g,3.4,1.0,0.8,0x9a6a2e,0,0.8,-D/2+3.4);box(g,W-6,0.35,0.5,0xe7a9c0,0,0.8,-D/2+4.5);
+  box(g,0.5,H,0.5,0x55504a,-W/2+2.2,0,-D/2+0.4);box(g,0.5,H,0.5,0x55504a,W/2-2.2,0,-D/2+0.4);
+  let row=0,zEnd=0;for(let z=-D/2+6.6;z<D/2-3.4;z+=1.25,row++){const ty=row*0.2;zEnd=z+0.725;
+    box(g,W-2,ty+0.02,1.25,0x3a3531,0,0,z+0.1);
+    for(let x=-W/2+1.8;x<=W/2-1.8;x+=0.82){if(Math.abs(x)<0.9)continue;const c=chair(g,x,z,0xd4202c);c.position.y=ty;}}
+  const lift=row*0.2;box(g,W-2,lift,D/2-zEnd,0x3a3531,0,0,(zEnd+D/2)/2);g.userData.camLift=lift;
 };
-
+BUILD.conf=function(g,W,D,H,rm){   // ring of tables, orange wall panels and a green backdrop, as in the photos of ห้องประชุมปาริชาติ
+  shell(g,W,D,H,{floor:'#8f8a84',line:'#827d77',wall:0x8a8d8f,tile:0.5});door(g,D,-W/2+1.2);
+  for(let z=-D/2+1.2;z<D/2-1;z+=2.4){box(g,0.06,2.2,1.1,0xf05a1a,-W/2+0.05,0.4,z);box(g,0.06,2.2,1.1,0xf05a1a,W/2-0.05,0.4,z);}
+  panel(g,6,2.1,new T.MeshBasicMaterial({map:textTex([{t:'วิทยาลัยสารพัดช่างสระบุรี',s:84,c:'#f3f3ee'},{t:rm.name,s:60,c:'#f3f3ee',wt:500}],{w:1280,h:448,bg:'#1c8a55'})}),0,1.7,-D/2+0.06);
+  box(g,1.3,2.2,0.06,0xf05a1a,-4.6,0.4,-D/2+0.05);box(g,1.3,2.2,0.06,0xf05a1a,4.6,0.4,-D/2+0.05);
+  const top=0xe9e7e2,base=0x4a4d50,L2=5.4,X=4.2,tab=(w,d,x,z)=>{box(g,w,0.05,d,top,x,0.72,z);box(g,w-0.1,0.72,d-0.5,base,x,0,z);};
+  tab(2*X+0.9,0.9,0,-L2/2-0.6);tab(2*X+0.9,0.9,0,L2/2+0.6);tab(0.9,L2+0.3,-X,0);tab(0.9,L2+0.3,X,0);
+  for(let z=-L2/2+0.3;z<=L2/2-0.2;z+=0.85){chair(g,-X-0.8,z,0x18191b,-Math.PI/2);chair(g,X+0.8,z,0x18191b,Math.PI/2);}
+  for(let x=-X+0.4;x<=X-0.3;x+=0.85){chair(g,x,-L2/2-1.4,0x18191b,Math.PI);chair(g,x,L2/2+1.4,0x18191b,0);}
+  box(g,1.6,0.5,0.8,0x5a3b2a,0,0,0);const fl=new T.Mesh(new T.SphereGeometry(0.32,12,10),M(0xd9483a));fl.position.set(0,0.75,0);g.add(fl);
+};
 /* ================= campus 3D scene ================= */
 const cv3=$('#cv3'),app=$('#app'),LB=$('#labels');
 let ren3=null;
@@ -636,8 +663,55 @@ Object.values(STY).forEach(s=>{
 });
 const pick=[];
 function addShadow(m){m.castShadow=true;m.receiveShadow=true;return m;}
+/* ---- อาคาร 3: modelled from the drone footage (open ground floor on columns, stage, seats, front stairs) ---- */
+const A3C={white:0xf4f3ee,orange:0xe9604a,mint:0x8fd0ae,teal:0x3aa893,dark:0x3a4046,conc:0xcfcbc0};
+function a3Box(g,sw,sh,sd,c,px,py,pz){const m=addShadow(new T.Mesh(UB,c.isMaterial?c:L(c)));m.scale.set(sw,sh,sd);m.position.set(px,py+sh/2,pz);g.add(m);return m;}
+function a3Ground(g,b,full){
+  const {x,y,w,h}=b.bb,base=b.base,fh=b.H/b.nF,colH=full?fh-base:1.25,x1=x+w,z1=y+h;
+  a3Box(g,w,base,h,A3C.conc,x+w/2,0,y+h/2);
+  const cm=L(0xe9e7e0);
+  for(let i=0;i<=5;i++)for(let j=0;j<=6;j++)a3Box(g,0.5,colH,0.5,cm,x+0.4+(w-0.8)*i/5,base,y+0.4+(h-0.8)*j/6);
+  const R1=b.rooms.filter(r=>r.floor===1),st=R1.find(r=>r.name==='เวที');
+  if(full)R1.filter(r=>r!==st&&r.name!=='บันได').forEach(r=>a3Box(g,r.w,colH,r.h,A3C.white,r.cx,base,r.cy));
+  if(st){a3Box(g,st.w,0.8,st.h,0x7a5236,st.cx,base,st.cy);a3Box(g,st.w,full?colH:1.6,0.3,0x8c2330,st.cx,base,st.y+0.15);a3Box(g,3,0.4,0.6,0x7a5236,st.cx,base,st.y+st.h+0.3);}
+  // rows of seats facing the stage
+  const seats=[];for(let sz=y+h*0.3;sz<y+h*0.74;sz+=1.35)for(let sx=x+w*0.08;sx<x+w*0.72;sx+=0.95)seats.push([sx,sz]);
+  const sm=L(0x2f6fb5),seat=new T.InstancedMesh(UB,sm,seats.length),back=new T.InstancedMesh(UB,sm,seats.length),o=new T.Object3D();
+  seats.forEach(([sx,sz],i)=>{o.position.set(sx,base+0.43,sz);o.scale.set(0.46,0.06,0.46);o.updateMatrix();seat.setMatrixAt(i,o.matrix);o.position.set(sx,base+0.68,sz+0.21);o.scale.set(0.46,0.46,0.05);o.updateMatrix();back.setMatrixAt(i,o.matrix);});
+  seat.castShadow=back.castShadow=true;g.add(seat,back);
+  // tables with benches along the front
+  [.16,.32,.48,.64].forEach(u=>{const tx2=x+w*u,tz2=y+h*0.92;a3Box(g,2.6,0.08,0.9,0xd9c9a8,tx2,base+0.68,tz2);a3Box(g,0.12,0.68,0.7,0x8b9197,tx2-1,base,tz2);a3Box(g,0.12,0.68,0.7,0x8b9197,tx2+1,base,tz2);
+    a3Box(g,2.6,0.07,0.34,0xb99a6b,tx2,base+0.4,tz2-0.75);a3Box(g,2.6,0.07,0.34,0xb99a6b,tx2,base+0.4,tz2+0.75);});
+  // front stairs by the student-affairs office, and the wide steps on the west side
+  const sw2=w*0.24,scx=x+w*0.86;for(let k=1;k<=3;k++)a3Box(g,sw2,base*k/3,0.42,A3C.conc,scx,0,z1+0.21+(3-k)*0.42);
+  for(let k=1;k<=3;k++)a3Box(g,0.42,base*k/3,h*0.5,A3C.conc,x-0.21-(3-k)*0.42,0,y+h*0.55);
+  a3Box(g,0.08,0.9,1.3,0xb7bcc0,scx-sw2/2,0.1,z1+0.65);a3Box(g,0.08,0.9,1.3,0xb7bcc0,scx+sw2/2,0.1,z1+0.65);
+}
+function a3Upper(g,b,yTop){
+  const {x,y,w,h}=b.bb,fh=b.H/b.nF,H=b.H,x1=x+w,z1=y+h,s=STY.new,top=yTop>=H;
+  a3Box(g,w,0.3,h,A3C.white,x+w/2,fh-0.3,y+h/2);
+  g.add(addShadow(new T.Mesh(wallGeo(b.pts,fh,yTop,3.6,fh),s.wallMat)));
+  const ov=(xa,xb,za,zb,ya,yb,c)=>{yb=Math.min(yb,top?1e9:yTop);if(yb-ya<0.05)return;a3Box(g,xb-xa,yb-ya,zb-za,c,(xa+xb)/2,ya,(za+zb)/2);};
+  const O=L(A3C.orange),Dk=L(A3C.dark),Mi=L(A3C.mint);
+  ov(x,x+w*0.55,z1-0.05,z1+0.12,3*fh+0.5,4*fh-0.2,Dk);ov(x-0.12,x+0.05,y+1,z1-1,3*fh+0.5,4*fh-0.2,Dk);      // tall dark windows of the hall floor
+  ov(x-0.18,x+w*0.55,z1-0.3,z1+0.18,4*fh,H+0.9,O);ov(x-0.18,x+0.12,y,z1,4*fh,H+0.9,O);                          // orange top floor
+  ov(x,x1,y-0.18,y+0.1,H-1.7,H+0.9,O);ov(x1-0.1,x1+0.18,y,y+3.2,fh,H+0.9,O);                                   // sign band on the north face, corner strip
+  ov(x+w*0.55,x+w*0.67,z1-1,z1+1.7,0,H+3,O);                                                                   // stair tower
+  ov(x+w*0.67,x+w*0.8,z1-0.2,z1+1.1,fh,H,Mi);for(let k=1;k<5;k++)ov(x+w*0.685,x+w*0.785,z1+1.1,z1+1.16,k*fh+1,k*fh+2.7,Dk);
+  ov(x+w*0.8,x+w*0.93,z1-0.2,z1+0.7,fh,H+1.5,O);
+  if(!top)return;
+  g.add(addShadow(flat(b.pts,H,L(0xc4c7c3))));g.add(addShadow(new T.Mesh(wallGeo(b.pts,H,H+0.9,3.6,1),s.plainMat)));
+  b.rooms.filter(r=>r.floor===6).forEach(r=>{const c=addShadow(new T.Mesh(UC,L(0x3c8fd0)));c.scale.set(1.3,2,1.3);c.position.set(r.cx,H+1,r.cy);g.add(c);});
+  const Te=L(A3C.teal),pm=L(0x8b9197);                                                                          // green canopies at ground level
+  a3Box(g,w*0.5+4,0.16,5,Te,x+w*0.75+2,fh-0.5,z1+2.5);a3Box(g,4,0.16,h*0.8,Te,x1+2,fh-0.5,y+h*0.6);
+  [[x+w*0.52,z1+4.7],[x+w*0.76,z1+4.7],[x1+3.7,z1+4.7],[x1+3.7,y+h*0.6],[x1+3.7,y+h*0.25]].forEach(([px,pz])=>a3Box(g,0.16,fh-0.5,0.16,pm,px,0,pz));
+  const sign=(txt,ww,hh,bg,fg)=>new T.Mesh(new T.PlaneGeometry(ww,hh),new T.MeshBasicMaterial({map:textTex([{t:txt,s:150,c:fg}],{w:2048,h:Math.round(2048*hh/ww),bg}),side:T.DoubleSide}));
+  const n1=sign('วิทยาลัยสารพัดช่างสระบุรี',w*0.5,2.1,'#e9604a','#ffffff');n1.position.set(x+w/2,H-0.4,y-0.2);n1.rotation.y=Math.PI;g.add(n1);
+  const n2=sign('www.srbpoly.ac.th',9,1,'#f4f3ee','#3a4046');n2.position.set(x+w*0.3,0.7,z1+3.4);g.add(n2);
+}
 B.forEach(b=>{
   const s=STY[b.sty],g=new T.Group();b.group=g;b.sty3=s;
+  if(b.custom){a3Ground(g,b,true);a3Upper(g,b,b.H);b.top=b.H+3;g.traverse(o=>{if(o.isMesh){o.userData.b=b;pick.push(o);}});world.add(g);return;}
   const fh=b.H/b.nF;
   g.add(addShadow(new T.Mesh(wallGeo(b.pts,0,b.H,3.6,fh),s.wallMat)));
   g.add(addShadow(flat(b.pts,b.H,s.capMat)));
@@ -645,9 +719,6 @@ B.forEach(b=>{
   if(s.roofType==='flat'){g.add(addShadow(new T.Mesh(wallGeo(b.pts,b.H,b.H+0.9,3.6,1),s.plainMat)));top+=0.9;}
   else mergeStrips(b.strips,3.5).forEach(r=>{const short=Math.min(r.x1-r.x0,r.y1-r.y0),rise=Math.min(4.2,Math.max(1.2,short*0.24));top=Math.max(top,b.H+rise);
     const [sl,en]=roofGeo(r,0.8,b.H,rise,s.roofType);g.add(addShadow(new T.Mesh(sl,s.roofMat)));if(en)g.add(addShadow(new T.Mesh(en,s.plainMat)));});
-  if(b.n===12){ // red stair tower on the new building, seen in the photos
-    const w=b.bb.w*0.24,d=b.bb.h*0.55,m=addShadow(new T.Mesh(UB,L(0xd9534a)));m.scale.set(w,b.H+3.4,d);m.position.set(b.bb.x+b.bb.w-w/2+0.3,(b.H+3.4)/2,b.bb.y+b.bb.h-d/2+0.3);g.add(m);
-    const m2=addShadow(new T.Mesh(UB,L(0x8fcfae)));m2.scale.set(b.bb.w*0.3,b.H*0.62,1);m2.position.set(b.bb.x+b.bb.w*0.48,b.H*0.31,b.bb.y+b.bb.h+0.5);g.add(m2);top=b.H+3.4;}
   b.top=top;g.traverse(o=>{if(o.isMesh){o.userData.b=b;pick.push(o);}});world.add(g);
 });
 /* ---- small structures seen in the photos ---- */
@@ -698,7 +769,7 @@ B.forEach(b=>{
 const cutG=new T.Group(),routeG=new T.Group(),meG=new T.Group(),selG=new T.Group();scene.add(cutG,routeG,meG,selG);
 const ACC=0x2a56c6,accMat=new T.MeshBasicMaterial({color:ACC,side:T.DoubleSide}),caseMat=new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide});
 const ROOM_C=0xfbfaf6,ROOM_SVC=0xd9d5cb,ROOM_HOT=0xcfdcfb,roomMat={},roomBase={};
-function clearG(g){for(let i=g.children.length-1;i>=0;i--){const o=g.children[i];g.remove(o);o.traverse(c=>{if(c.geometry&&c.geometry!==UB&&c.geometry!==UC)c.geometry.dispose();});}}
+function clearG(g){for(let i=g.children.length-1;i>=0;i--){const o=g.children[i];g.remove(o);o.traverse(c=>{if(c.geometry&&c.geometry!==UB&&c.geometry!==UC)c.geometry.dispose();if(c.material&&c.material.map&&c.material.map.isCanvasTexture&&c.geometry&&c.geometry.type==='PlaneGeometry')c.material.map.dispose();});}}
 
 /* ---------- labels ---------- */
 const labels=[];
@@ -756,22 +827,24 @@ function buildCut(){
   clearG(cutG);dropLabels('r');Object.keys(roomMat).forEach(k2=>delete roomMat[k2]);
   B.forEach(b=>{b.group.visible=b!==focusB;});
   const b=focusB;if(!b)return;
-  const s=b.sty3,fh=b.H/b.nF,y0=(b.floor-1)*fh;
-  if(b.floor>1)cutG.add(addShadow(new T.Mesh(wallGeo(b.pts,0,y0,3.6,fh),s.wallMat)));
+  const s=b.sty3,fh=b.H/b.nF,y0=floorY(b,b.floor);
+  const open=b.custom&&b.floor===1;
+  if(b.custom){if(open)a3Ground(cutG,b,false);else{a3Ground(cutG,b,true);a3Upper(cutG,b,y0);}}
+  else if(b.floor>1)cutG.add(addShadow(new T.Mesh(wallGeo(b.pts,0,y0,3.6,fh),s.wallMat)));
   cutG.add(flat(b.pts,y0+0.02,L(0xe6e2d6)));
-  cutG.add(addShadow(new T.Mesh(wallGeo(b.pts,y0,y0+1.25,3.6,1e6),L(s.band,{side:T.DoubleSide}))));
+  if(!open)cutG.add(addShadow(new T.Mesh(wallGeo(b.pts,y0,y0+1.25,3.6,1e6),L(s.band,{side:T.DoubleSide}))));
   const wm=L(0xd3cec3),list=b.rooms.filter(r=>r.floor===b.floor);
   list.forEach(r=>{
     roomBase[r.id]=r.svc?ROOM_SVC:ROOM_C;const m=roomMat[r.id]=L(roomBase[r.id]);cutG.add(flat(rectPts(r),y0+0.06,m));
     const t=0.16,h=1.05;[[r.cx,r.y,r.w,t],[r.cx,r.y+r.h,r.w,t],[r.x,r.cy,t,r.h],[r.x+r.w,r.cy,t,r.h]].forEach(([x,z,w,d])=>{const w3=new T.Mesh(UB,wm);w3.scale.set(w+t,h,d);w3.position.set(x,y0+h/2,z);w3.castShadow=true;cutG.add(w3);});
-    r.lab=addLabel('div','r',r.real?(r.code?`${r.code}<small>${r.name}</small>`:r.name):`${r.code}<small>${r.name} (ตัวอย่าง)</small>`,r.cx,y0+1.2,r.cy,{kind:'r',ref:r});
+    r.lab=addLabel('div','r',r.real?(r.code&&r.name!=='ห้อง '+r.code?`${r.code}<small>${r.name}</small>`:r.name):`${r.code}<small>${r.name} (ตัวอย่าง)</small>`,r.cx,y0+1.2,r.cy,{kind:'r',ref:r});
   });
   if(!list.length)addLabel('div','e','ยังไม่มีข้อมูลห้องของชั้นนี้',b.cx,y0+1,b.cy,{kind:'r'});
   focusRm=null;hotRm=null;
 }
 function setRoomTint(){for(const id in roomMat){const on=(focusRm&&focusRm.id===id)||(hotRm&&hotRm.id===id);roomMat[id].color.setHex(on&&ROOMS_BY[id].type?ROOM_HOT:roomBase[id]);}
   labels.forEach(l=>{if(l.kind==='r'&&l.ref)l.el.classList.toggle('focus',l.ref===focusRm);});}
-function setFloor(b,f){if(!b||b.nFloors<2||b.floor===f)return;b.floor=f;if(focusB===b){lookY=(f-1)*b.H/b.nF;buildCut();drawFloors();}req();}
+function setFloor(b,f){if(!b||b.nFloors<2||b.floor===f)return;b.floor=f;if(focusB===b){lookY=floorY(b,f);buildCut();drawFloors();}req();}
 function drawFloors(){const b=focusB,el=$('#floors');if(!b||b.nFloors<2){el.hidden=true;return;}
   el.innerHTML='<small>ชั้น</small>'+Array.from({length:b.nFloors},(_,i)=>b.nFloors-i).map(f=>`<button data-f="${f}" class="${f===b.floor?'on':''}" aria-pressed="${f===b.floor}" aria-label="${floorName(b,f)}">${f>b.nF?'ดฟ.':f}</button>`).join('');el.hidden=false;}
 $('#floors').addEventListener('click',e=>{const bt=e.target.closest('button');if(bt&&focusB)setFloor(focusB,+bt.dataset.f);});
@@ -779,7 +852,7 @@ function updateFocus(){
   let b=null;
   if(lvl>=1){const c=center();b=B.find(x=>x.rs&&pip(c,x.pts))||null;
     if(!b&&sel&&sel.rs&&c.x>sel.bb.x-6&&c.x<sel.bb.x+sel.bb.w+6&&c.y>sel.bb.y-6&&c.y<sel.bb.y+sel.bb.h+6)b=sel;}
-  if(b!==focusB){focusB=b;lookY=b?(b.floor-1)*b.H/b.nF:0;buildCut();drawFloors();applyCam();}
+  if(b!==focusB){focusB=b;lookY=b?floorY(b,b.floor):0;buildCut();drawFloors();applyCam();}
 }
 
 /* ---------- render ---------- */
@@ -872,7 +945,7 @@ $('#acts').addEventListener('click',async e=>{const bt=e.target.closest('button'
   else if(a==='link'){const t='#'+sel.id;try{await navigator.clipboard.writeText(t);toast(`คัดลอก ${t} แล้ว · นำไปต่อท้ายที่อยู่เว็บเพื่อสร้าง QR ประจำอาคาร`);}catch(err){toast(`ต่อท้ายที่อยู่เว็บด้วย ${t} เพื่อสร้าง QR ประจำอาคารนี้`);}}
 });
 function pickAt(sx,sy){
-  if(focusB){const y0=(focusB.floor-1)*focusB.H/focusB.nF,p=toPlane(sx,sy,y0+0.06);if(p&&pip(p,focusB.pts))return{b:focusB,rm:roomAt(p)};}
+  if(focusB){const y0=floorY(focusB,focusB.floor),p=toPlane(sx,sy,y0+0.06);if(p&&pip(p,focusB.pts))return{b:focusB,rm:roomAt(p)};}
   setRay(sx,sy);const hit=ray.intersectObjects(pick,false).find(h=>h.object.userData.b.group.visible);
   return hit?{b:hit.object.userData.b}:null;
 }
@@ -886,7 +959,7 @@ function tap(sx,sy){
 /* ---------- search ---------- */
 const IDX=[...B.map(b=>({b,label:b.label,sub:(b.name?'':'ชื่อชั่วคราว · ')+b.nF+' ชั้น'+(b.units.length?' · '+b.units.join(', '):''),hay:[b.name,b.hint,b.code,...b.units].filter(Boolean).join(' ').toLowerCase()})),
   ...PO.map(p=>({b:p,label:p.name,sub:'จุดสำคัญ',hay:p.name.toLowerCase()})),
-  ...ROOMS.filter(r=>r.name!=='แทงก์น้ำ').map(r=>({r,label:(r.code?r.code+' ':'')+r.name,sub:`${r.b.label} ${floorName(r.b,r.floor)}${r.real?'':' · ข้อมูลตัวอย่าง'}`,hay:[r.name,r.code,r.b.label,floorName(r.b,r.floor),TYPES[r.type]].filter(Boolean).join(' ').toLowerCase()}))];
+  ...ROOMS.filter(r=>r.name!=='แทงก์น้ำ').map(r=>({r,label:(r.code&&r.name!=='ห้อง '+r.code?r.code+' ':'')+r.name,sub:`${r.b.label} ${floorName(r.b,r.floor)}${r.real?'':' · ข้อมูลตัวอย่าง'}`,hay:[r.name,r.code,r.b.label,floorName(r.b,r.floor),TYPES[r.type]].filter(Boolean).join(' ').toLowerCase()}))];
 let hits=[],hi=0;
 function showResults(){const q=$('#q').value.trim().toLowerCase(),box=$('#results');if(!q){box.hidden=true;return;}
   hits=IDX.filter(x=>x.hay.includes(q)).sort((x,y)=>(x.label.toLowerCase().includes(q)?0:1)-(y.label.toLowerCase().includes(q)?0:1)).slice(0,8);hi=0;
